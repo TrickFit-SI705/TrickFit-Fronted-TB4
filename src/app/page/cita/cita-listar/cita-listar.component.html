@@ -1,0 +1,47 @@
+<div class="buscarcita">
+  <h2>CITAS</h2>
+  <p>Cantidad de citas: {{getCantidad()}}</p>
+  <label id="labelnombrecita" class="form-label"> Buscar cita: </label> 
+  <app-cita-buscar></app-cita-buscar>
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>ID</th>
+    <td mat-cell *matCellDef="let element">{{ element?.idCita }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="usuario">
+    <th mat-header-cell *matHeaderCellDef>Usuario</th>
+    <td mat-cell *matCellDef="let element">{{ element?.usuario.nombreUsuario }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="especialista">
+    <th mat-header-cell *matHeaderCellDef>Especialista</th>
+    <td mat-cell *matCellDef="let element">{{ element?.especialista.nombreUsuario }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="fecha">
+    <th mat-header-cell *matHeaderCellDef>Fecha</th>
+    <td mat-cell *matCellDef="let element">{{ element?.fechaCita }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="hora">
+    <th mat-header-cell *matHeaderCellDef>Hora</th>
+    <td mat-cell *matCellDef="let element">{{ element?.horaCita.substring(0,2) }} : {{ element?.horaCita.substring(2,5) }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="acciones">
+    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+    <td mat-cell *matCellDef="let element"> <button mat-raised-button color="basic"
+            [routerLink]="['edicion', element.idCita]">Actualizar</button>
+        <button mat-raised-button color="warn" (click)="confirmar(element.idCita)">Eliminar</button>
+    </td>
+</ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<button mat-mini-fab color="warn" aria-label="Example icon button with a plus one icon"
+    routerLink="/citas/nuevo">
+    <mat-icon>plus_one</mat-icon>
+</button>
